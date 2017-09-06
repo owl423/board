@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+html(lang="ko-KR")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible", content="ie=edge")
+    title 익명게시판 - 관리자
+    link(rel="stylesheet", href="/static/index.css")
+  body
+    div.wrapper
+      header
+        h1 익명게시판
+        form.write-btn-form(action="/write" method="get")
+          input(type="submit" value="글쓰기")
+      table
+        thead
+          tr
+            td(scope="col") 글번호
+            td(scope="col") 글제목
+            td(scope="col") 작성자
+            td(scope="col") 조회수
+            td(scope="col") 작성날짜
+            td(scope="col") 삭제
+        tbody
+          each item in data
+            tr
+              td= item.id
+              td
+                a(href= `/admin/${item.id}`)= item.title
+              td= item.author
+              td= item.count
+              td= item.date
+              td
+                form(method="post" action=`/delete/${item.id}`)
+                  input(type="submit" value="게시글 삭제")

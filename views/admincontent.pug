@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+html(lang="ko-KR")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible", content="ie=edge")
+    title= '익명게시판 - ' + data.title
+  body
+    header
+      span 제목
+      h1= data.title
+      span 작성자
+      p= data.author
+    main
+      span 내용
+      p= data.content
+    div.comment
+      form(action=`/comment/${data.id}` method="post")
+        label(for="author") 닉네임
+        input#author(type="text" name="author")
+        label(for="comment-input") 댓글 입력
+        input#comment-input(type="text" name="comment")
+        input(type="submit" value="등록")
+      each comment in data.comments
+        p
+          span= comment.author + ` : `
+          span= comment.comment
+          time= comment.date
+          form(action=`/admin/${data.id}/${comment.commentID}` method="post")
+            input(type="submit" value="댓글 삭제")
